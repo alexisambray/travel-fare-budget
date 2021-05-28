@@ -21,7 +21,7 @@ typedef enum { JEEPNEY = 1, BUS, TAXI, UBER } ModeTransport;
 int getNumTravellers(void) {
   int numTravellers;
 
-  printf("Enter Number of People: ");
+  printf("Number of People Travelling Together: ");
   scanf("%d", &numTravellers);
 
   return numTravellers;
@@ -30,7 +30,7 @@ int getNumTravellers(void) {
 int getDistance(void) {
   int distance;
 
-  printf("Enter Distance to Travel: ");
+  printf("Distance to Destination (km): ");
   scanf("%d", &distance);
 
   return distance;
