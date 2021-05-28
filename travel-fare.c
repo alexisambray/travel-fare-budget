@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdio.h>
 
 #define TAXI_CAPACITY 4
@@ -64,11 +65,7 @@ double calcTaxiFare(const int numTravellers, const int distance) {
     succeedingKm = INITIAL_VALUE;
   }
 
-  int numTaxis = numTravellers / TAXI_CAPACITY;
-
-  if (numTravellers % TAXI_CAPACITY > INITIAL_VALUE) {
-    numTaxis++;
-  }
+  int numTaxis = ceil((float)numTravellers / TAXI_CAPACITY);
 
   double totalFare =
       (TAXI_MIN_FARE + (succeedingKm * TAXI_SUCCEEDING_FARE)) * numTaxis;
@@ -78,5 +75,7 @@ double calcTaxiFare(const int numTravellers, const int distance) {
 int main() {
   int numTravellers = getNumTravellers();
   int distance = getDistance();
+
+  printf("Total Fare: %lf\n", calcTaxiFare(numTravellers, distance));
   return 0;
 }
