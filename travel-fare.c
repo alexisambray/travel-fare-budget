@@ -31,6 +31,17 @@ double calcJeepneyFare(const int numTravellers, const int distance) {
   return totalFare;
 }
 
+double calcBusFare(const int numTravellers, const int distance) {
+  int succeedingKm = distance - 4;
+
+  if (succeedingKm < 0) {
+    succeedingKm = 0;
+  }
+
+  double totalFare = (11.00 + (succeedingKm * 0.50)) * numTravellers;
+  return totalFare;
+}
+
 int main() {
   int numTravellers = getNumTravellers();
   int distance = getDistance();
