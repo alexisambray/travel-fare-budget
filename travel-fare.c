@@ -89,9 +89,40 @@ double calcUberFare(const int numTravellers, const int distance) {
   return totalFare;
 }
 
+void calcCheapestModeTransport(double* fare,
+                               ModeTransport* modeTransport,
+                               const int numTravellers,
+                               const int distance) {
+  *fare = calcJeepneyFare(numTravellers, distance);
+  *modeTransport = JEEPNEY;
+  double busFare = calcBusFare(numTravellers, distance);
+
+  if (busFare < *fare) {
+    *fare = busFare;
+    *modeTransport = BUS;
+  }
+
+  double taxiFare = calcTaxiFare(numTravellers, distance);
+
+  if (taxiFare < *fare) {
+    *fare = taxiFare;
+    *modeTransport = TAXI;
+  }
+
+  double uberFare = calcUberFare(numTravellers, distance);
+
+  if (uberFare < *fare) {
+    *fare = uberFare;
+    *modeTransport = UBER;
+  }
+}
+
 int main() {
   int numTravellers = getNumTravellers();
   int distance = getDistance();
+  double fare;
+  ModeTransport modeTransport;
+  calcCheapestModeTransport(&fare, &modeTransport, numTravellers, distance);
 
   return 0;
 }
