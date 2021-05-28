@@ -117,12 +117,38 @@ void calcCheapestModeTransport(double* fare,
   }
 }
 
+void displayResults(const int numTravellers,
+                    const int distance,
+                    const ModeTransport modeTransport,
+                    const double fare) {
+  printf("The cheapest transport option for %d people travelling %d km is by ",
+         numTravellers, distance);
+  switch (modeTransport) {
+    case JEEPNEY:
+      puts("JEEP");
+      break;
+    case BUS:
+      puts("BUS");
+      break;
+    case TAXI:
+      puts("TAXI");
+      break;
+    case UBER:
+      puts("UBER");
+      break;
+  }
+
+  printf("\nThe Total Fare is %.2lf\n", fare);
+  printf("Each will pay %.2lf\n", fare / numTravellers);
+}
+
 int main() {
   int numTravellers = getNumTravellers();
   int distance = getDistance();
   double fare;
   ModeTransport modeTransport;
   calcCheapestModeTransport(&fare, &modeTransport, numTravellers, distance);
+  displayResults(numTravellers, distance, modeTransport, fare);
 
   return 0;
 }
