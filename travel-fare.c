@@ -20,8 +20,20 @@ int getDistance(void) {
   return distance;
 }
 
+double calcJeepneyFare(const int numTravellers, const int distance) {
+  int succeedingKm = distance - 4;
+
+  if (succeedingKm < 0) {
+    succeedingKm = 0;
+  }
+
+  double totalFare = (9.50 + (succeedingKm * 0.75)) * numTravellers;
+  return totalFare;
+}
+
 int main() {
   int numTravellers = getNumTravellers();
   int distance = getDistance();
+
   return 0;
 }
