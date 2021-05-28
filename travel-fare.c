@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define TAXI_CAPACITY 4
+
 typedef enum { JEEPNEY = 1, BUS, TAXI, UBER } ModeTransport;
 
 int getNumTravellers(void) {
@@ -42,9 +44,25 @@ double calcBusFare(const int numTravellers, const int distance) {
   return totalFare;
 }
 
+double calcTaxiFare(const int numTravellers, const int distance) {
+  int succeedingKm = distance - 8;
+
+  if (succeedingKm < 0) {
+    succeedingKm = 0;
+  }
+
+  int numTaxis = numTravellers / TAXI_CAPACITY;
+
+  if (numTravellers % TAXI_CAPACITY > 0) {
+    numTaxis++;
+  }
+
+  double totalFare = (45.00 + (succeedingKm * 1.25)) * numTaxis;
+  return totalFare;
+}
+
 int main() {
   int numTravellers = getNumTravellers();
   int distance = getDistance();
-
   return 0;
 }
