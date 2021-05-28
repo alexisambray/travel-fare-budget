@@ -1,6 +1,16 @@
 #include <stdio.h>
 
 #define TAXI_CAPACITY 4
+#define JEEPNEY_DISTANCE 4
+#define BUS_DISTANCE 4
+#define JEEPNEY_MIN_FARE 9.50
+#define JEEPNEY_SUCCEEDING_FARE 0.75
+#define INITIAL_VALUE 0
+#define BUS_MIN_FARE 11.00
+#define BUS_SUCCEEDING_FARE 0.50
+#define TAXI_DISTANCE 8
+#define TAXI_MIN_FARE 45.00
+#define TAXI_SUCCEEDING_FARE 1.25
 
 typedef enum { JEEPNEY = 1, BUS, TAXI, UBER } ModeTransport;
 
@@ -23,41 +33,45 @@ int getDistance(void) {
 }
 
 double calcJeepneyFare(const int numTravellers, const int distance) {
-  int succeedingKm = distance - 4;
+  int succeedingKm = distance - JEEPNEY_DISTANCE;
 
-  if (succeedingKm < 0) {
-    succeedingKm = 0;
+  if (succeedingKm < INITIAL_VALUE) {
+    succeedingKm = INITIAL_VALUE;
   }
 
-  double totalFare = (9.50 + (succeedingKm * 0.75)) * numTravellers;
+  double totalFare =
+      (JEEPNEY_MIN_FARE + (succeedingKm * JEEPNEY_SUCCEEDING_FARE)) *
+      numTravellers;
   return totalFare;
 }
 
 double calcBusFare(const int numTravellers, const int distance) {
-  int succeedingKm = distance - 4;
+  int succeedingKm = distance - BUS_DISTANCE;
 
-  if (succeedingKm < 0) {
-    succeedingKm = 0;
+  if (succeedingKm < INITIAL_VALUE) {
+    succeedingKm = INITIAL_VALUE;
   }
 
-  double totalFare = (11.00 + (succeedingKm * 0.50)) * numTravellers;
+  double totalFare =
+      (BUS_MIN_FARE + (succeedingKm * BUS_SUCCEEDING_FARE)) * numTravellers;
   return totalFare;
 }
 
 double calcTaxiFare(const int numTravellers, const int distance) {
-  int succeedingKm = distance - 8;
+  int succeedingKm = distance - TAXI_DISTANCE;
 
-  if (succeedingKm < 0) {
-    succeedingKm = 0;
+  if (succeedingKm < INITIAL_VALUE) {
+    succeedingKm = INITIAL_VALUE;
   }
 
   int numTaxis = numTravellers / TAXI_CAPACITY;
 
-  if (numTravellers % TAXI_CAPACITY > 0) {
+  if (numTravellers % TAXI_CAPACITY > INITIAL_VALUE) {
     numTaxis++;
   }
 
-  double totalFare = (45.00 + (succeedingKm * 1.25)) * numTaxis;
+  double totalFare =
+      (TAXI_MIN_FARE + (succeedingKm * TAXI_SUCCEEDING_FARE)) * numTaxis;
   return totalFare;
 }
 
